@@ -8,13 +8,7 @@
   "description": "Simple Bodega deposit reconciliation app.",
   "icons": [
     {
-      "src": "apple-touch-icon.png?v=1.12",
-      "sizes": "190x190",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon.svg?v=1.12",
+      "src": "icon.svg?v=1.13",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
