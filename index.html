@@ -67,7 +67,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;margin-top:14px}
 <section class="panel">
   <div class="formula"><b>Formula:</b><br>(Bodega Card Payment TOTAL − EBT) × 0.9661835 = expected card deposit<br>Expected card deposit + EBT = total expected in bank</div>
 </section>
-<footer>v1.9 • Processing factor 0.9661835 • EBT is not reduced</footer>
+<footer>v1.10 • Processing factor 0.9661835 • EBT is not reduced</footer>
 </main>
 <script>
 const FACTOR = 0.9661835;
@@ -120,7 +120,7 @@ function calculate(){
   const card = net*FACTOR;
   const grand = card+ebt;
   document.getElementById('netCard').textContent=money(net);
-  document.getElementById('fee').textContent=money(fee);
+  document.getElementById('fee').textContent=money(-fee);
   document.getElementById('cardDeposit').textContent=money(card);
   document.getElementById('ebtDeposit').textContent=money(ebt);
   document.getElementById('grandTotal').textContent=money(grand);
