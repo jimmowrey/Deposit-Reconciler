@@ -1,9 +1,9 @@
 {
-  "name": "Foothill Deposit Reconciler",
+  "name": "Deposit Reconciler",
   "short_name": "Deposits",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#eef3f7",
   "theme_color": "#1f4f7a",
-  "description": "Simple Bodega deposit reconciliation for Foothill Meat Company."
+  "description": "Simple Bodega deposit reconciliation app."
 }
