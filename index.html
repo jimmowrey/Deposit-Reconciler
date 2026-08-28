@@ -40,6 +40,7 @@ input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,79,122,.10)}
 .totalrow{background:var(--blue);color:#fff}
 .totalrow .rname{color:#fff;font-size:16px}
 .totalrow .rval{font-size:22px}
+.variance-note{margin-top:10px;padding:10px 12px;border-radius:10px;background:#fff7df;color:#5f4a12;font-size:12px;line-height:1.45;border:1px solid #ead89a}
 .formula{background:#f8fafc;border-left:5px solid var(--blue);padding:11px 12px;border-radius:10px;font-size:13px;line-height:1.5}
 footer{text-align:center;color:var(--muted);font-size:11px;margin-top:14px}
 </style>
@@ -59,11 +60,12 @@ footer{text-align:center;color:var(--muted);font-size:11px;margin-top:14px}
     <div class="row ebtrow"><div class="rname"><b>Expected EBT deposit</b></div><div class="rval" id="ebtDeposit">$0.00</div></div>
     <div class="row totalrow"><div class="rname"><b>TOTAL Expected in Bank</b></div><div class="rval" id="grandTotal">$0.00</div></div>
   </div>
+  <div class="variance-note"><b>Note:</b> A few cents of variance may occur due to processor transaction-level rounding. Variances over <b>$0.10</b> should be reviewed.</div>
 </section>
 <section class="panel">
   <div class="formula"><b>Formula:</b><br>(Bodega Card Payment TOTAL − EBT) × 0.9661835 = expected card deposit<br>Expected card deposit + EBT = total expected in bank</div>
 </section>
-<footer>v1.6 • Processing factor 0.9661835 • EBT is not reduced</footer>
+<footer>v1.7 • Processing factor 0.9661835 • EBT is not reduced</footer>
 </main>
 <script>
 const FACTOR = 0.9661835;
