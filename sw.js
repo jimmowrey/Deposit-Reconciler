@@ -1,5 +1,5 @@
-const CACHE='deposit-reconciler-cache-app-v1.12';
-const ASSETS=['./','./index.html','./manifest.json','./icon.svg?v=1.12','./apple-touch-icon.png?v=1.12'];
+const CACHE='deposit-reconciler-cache-app-v1.13';
+const ASSETS=['./','./index.html','./manifest.json','./icon.svg?v=1.13'];
 
 self.addEventListener('install',e=>{
   self.skipWaiting();
