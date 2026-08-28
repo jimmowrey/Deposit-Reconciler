@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1f4f7a">
+<title>Foothill Deposit Reconciler</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+  --bg:#eef3f7;
+  --card:#ffffff;
+  --text:#102033;
+  --muted:#637387;
+  --line:#cbd5df;
+  --blue:#1f4f7a;
+  --blue-soft:#e8f1f8;
+  --green:#26734d;
+  --green-soft:#e8f5ee;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+.wrap{
+  max-width:620px;
+  margin:auto;
+  padding:14px 12px 34px;
+}
+.header{
+  background:var(--blue);
+  color:#fff;
+  border-radius:18px;
+  padding:18px 16px 16px;
+  margin-bottom:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+h1{
+  font-size:27px;
+  line-height:1.1;
+  text-align:center;
+  margin:0 0 4px;
+}
+.subtitle{
+  text-align:center;
+  margin:0;
+  opacity:.85;
+}
+.panel{
+  background:var(--card);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+  box-shadow:0 2px 9px rgba(0,0,0,.08);
+}
+label{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+  margin:0 0 6px;
+}
+.hint{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:500;
+}
+.money{
+  position:relative;
+  margin-bottom:14px;
+}
+.money b{
+  position:absolute;
+  left:13px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:19px;
+  color:var(--blue);
+}
+input{
+  width:100%;
+  border:2px solid var(--line);
+  border-radius:11px;
+  padding:12px 12px 12px 32px;
+  font-size:22px;
+  font-weight:800;
+  outline:none;
+  background:#fff;
+  color:var(--text);
+}
+input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(31,79,122,.10);
+}
+.depositbox{
+  margin-top:4px;
+  background:#f8fafc;
+  border-radius:13px;
+  overflow:hidden;
+  border:1px solid #e3e9ef;
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 13px;
+  border-bottom:1px solid #e2e8f0;
+  align-items:center;
+}
+.row:last-child{border:0}
+.rname{
+  color:#34465a;
+  font-size:14px;
+}
+.rval{
+  font-weight:900;
+  font-size:18px;
+  text-align:right;
+  white-space:nowrap;
+}
+.cardrow{background:var(--blue-soft)}
+.ebtrow{background:var(--green-soft)}
+.totalrow{
+  background:var(--blue);
+  color:#fff;
+}
+.totalrow .rname{
+  color:#fff;
+  font-size:16px;
+}
+.totalrow .rval{
+  font-size:22px;
+}
+.formula{
+  background:#f8fafc;
+  border-left:5px solid var(--blue);
+  padding:11px 12px;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.5;
+}
+footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:14px;
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<section class="header">
+  <h1>Deposit Reconciler</h1>
+  <p class="subtitle">Foothill Meat Company</p>
+</section>
+
+<section class="panel">
+  <label>Bodega Card Payment Breakdown TOTAL <span class="hint">(includes EBT)</span></label>
+  <div class="money">
+    <b>$</b>
+    <input id="cardTotal" inputmode="decimal" placeholder="0.00">
+  </div>
+
+  <label>EBT</label>
+  <div class="money">
+    <b>$</b>
+    <input id="ebt" inputmode="decimal" placeholder="0.00">
+  </div>
+
+  <div class="depositbox">
+    <div class="row">
+      <div class="rname">Card sales excluding EBT</div>
+      <div class="rval" id="netCard">$0.00</div>
+    </div>
+
+    <div class="row">
+      <div class="rname">Processing deduction (3.38165%)</div>
+      <div class="rval" id="fee">$0.00</div>
+    </div>
+
+    <div class="row cardrow">
+      <div class="rname"><b>Expected CARD deposit</b></div>
+      <div class="rval" id="cardDeposit">$0.00</div>
+    </div>
+
+    <div class="row ebtrow">
+      <div class="rname"><b>Expected EBT deposit</b></div>
+      <div class="rval" id="ebtDeposit">$0.00</div>
+    </div>
+
+    <div class="row totalrow">
+      <div class="rname"><b>TOTAL Expected in Bank</b></div>
+      <div class="rval" id="grandTotal">$0.00</div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="formula">
+    <b>Formula:</b><br>
+    (Bodega Card Payment TOTAL − EBT) × 0.9661835 = expected card deposit<br>
+    Expected card deposit + EBT = total expected in bank
+  </div>
+</section>
+
+<footer>Processing factor 0.9661835 • EBT is not reduced</footer>
+
+</main>
+
+<script>
+const FACTOR = 0.9661835;
+const RATE = 1 - FACTOR;
+
+const money = n => n.toLocaleString('en-US',{
+  style:'currency',
+  currency:'USD'
+});
+
+const num = v => Number(String(v || '').replace(/[$,\s]/g,'')) || 0;
+
+function calculate(){
+  const total = num(document.getElementById('cardTotal').value);
+  const ebt = num(document.getElementById('ebt').value);
+
+  const net = Math.max(0, total - ebt);
+  const fee = net * RATE;
+  const card = net * FACTOR;
+  const grand = card + ebt;
+
+  document.getElementById('netCard').textContent = money(net);
+  document.getElementById('fee').textContent = money(fee);
+  document.getElementById('cardDeposit').textContent = money(card);
+  document.getElementById('ebtDeposit').textContent = money(ebt);
+  document.getElementById('grandTotal').textContent = money(grand);
+}
+
+['cardTotal','ebt'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calculate);
+});
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
+calculate();
+</script>
+</body>
+</html>
