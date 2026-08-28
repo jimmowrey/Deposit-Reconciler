@@ -1,5 +1,5 @@
-const CACHE='deposit-reconciler-cache-app-v1.10';
-const ASSETS=['./','./index.html','./manifest.json','./icon.svg'];
+const CACHE='deposit-reconciler-cache-app-v1.11';
+const ASSETS=['./','./index.html','./manifest.json','./icon.svg?v=1.11'];
 
 self.addEventListener('install',e=>{
   self.skipWaiting();
