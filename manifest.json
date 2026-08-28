@@ -5,5 +5,13 @@
   "display": "standalone",
   "background_color": "#eef3f7",
   "theme_color": "#1f4f7a",
-  "description": "Simple Bodega deposit reconciliation app."
+  "description": "Simple Bodega deposit reconciliation app.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
