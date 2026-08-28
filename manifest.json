@@ -8,7 +8,7 @@
   "description": "Simple Bodega deposit reconciliation app.",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "icon.svg?v=1.11",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
